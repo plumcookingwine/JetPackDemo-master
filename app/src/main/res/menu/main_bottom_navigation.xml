@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_fragment"
+        android:icon="@drawable/main_icon_tab_home"
+        android:title="@string/main_tab_home" />
+
+    <item
+        android:id="@+id/system_fragment"
+        android:icon="@drawable/main_icon_tab_sys"
+        android:title="@string/main_tab_system" />
+
+    <item
+        android:id="@+id/navigator_fragment"
+        android:icon="@drawable/main_icon_tab_navigator"
+        android:title="@string/main_tab_navigator" />
+
+    <item
+        android:id="@+id/project_fragment"
+        android:icon="@drawable/main_icon_tab_project"
+        android:title="@string/main_tab_project" />
+
+    <item
+        android:id="@+id/personal_fragment"
+        android:icon="@drawable/main_icon_tab_personal"
+        android:title="@string/main_tab_personal" />
+</menu>

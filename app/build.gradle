@@ -1,0 +1,65 @@
+import com.plumcookingwine.versions.*
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion VersionControl.compileSdkVersion
+    buildToolsVersion VersionControl.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.plumcookingwine.jetpack"
+        minSdkVersion VersionControl.minSdkVersion
+        targetSdkVersion VersionControl.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+        // compose true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    VersionControl.Dependencies.mDependenciesMap.each {
+        implementation it.value
+    }
+
+    VersionControl.Compilers.mCompilers.each {
+        kapt it.value
+    }
+}

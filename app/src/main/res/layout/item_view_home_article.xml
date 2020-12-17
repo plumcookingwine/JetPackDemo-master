@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.plumcookingwine.jetpack.data.entity.HomeArticleData.Data" />
+
+        <import type="android.view.View" />
+
+        <import type="com.plumcookingwine.jetpack.utils.TimeUtilsKt" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.chapterName}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvFresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/border_tag_color_primary"
+            android:text="@string/tag_fresh"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="@{data.fresh ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toRightOf="@id/tvCategory"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/border_tag_color_primary"
+            android:text="@string/tag_stick"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="@{data.fresh ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toRightOf="@id/tvFresh"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@{data.title}"
+            android:textColor="@color/text_color_light"
+            android:textSize="@dimen/text_size_16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCategory" />
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text='@{"作者: " + data.author}'
+            android:textColor="@color/text_color_middle"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text='@{"发布时间: " + TimeUtilsKt.formatString(data.publishTime,  "yyyy-MM-dd HH:mm:ss")}'
+            android:textColor="@color/text_color_middle"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthor" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/ic_collection"
+            android:checked="@{data.collect}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTime" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
