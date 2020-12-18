@@ -42,6 +42,7 @@ class VersionControl {
     static final hilt_version = "2.28.1-alpha"
     static final hilt_vm_version = "1.0.0-alpha02"
     static final nav_version = "2.3.2"
+    static final fragment_version = "1.2.4"
     static final compose_version = "1.0.0-alpha05"
     static final banner_version = "2.1.0"
     static final divider_version = "2.0"
@@ -84,7 +85,8 @@ class VersionControl {
                 "hilt"                   : "com.google.dagger:hilt-android:$hilt_version",
                 "hilt_vm"                : "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_vm_version",
                 // 导航组件
-                "nav_fragment"           : "androidx.navigation:navigation-fragment-ktx:$nav_version",
+                // "nav_fragment"           : "androidx.navigation:navigation-fragment-ktx:$nav_version",
+                "fragment"           : "androidx.fragment:fragment-ktx:$fragment_version",
                 "nav_ui"                 : "androidx.navigation:navigation-ui-ktx:$nav_version",
                 /**
                  * ------------------ JetPack库相关 end ------------------

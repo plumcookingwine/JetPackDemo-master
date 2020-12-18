@@ -1,4 +1,4 @@
-package com.plumcookingwine.jetpack.ui.main.home
+package com.plumcookingwine.jetpack.ui.view.main.home
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -8,7 +8,6 @@ import com.plumcookingwine.jetpack.base.BaseViewModel
 import com.plumcookingwine.jetpack.data.entity.HomeArticleData
 import com.plumcookingwine.jetpack.data.entity.HomeBannerData
 import com.plumcookingwine.jetpack.data.repository.Repository
-import com.plumcookingwine.jetpack.loadsir.LoadResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

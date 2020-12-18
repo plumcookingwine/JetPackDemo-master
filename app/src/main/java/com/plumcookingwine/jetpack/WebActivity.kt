@@ -13,13 +13,18 @@ class WebActivity : BaseActivity() {
         return R.layout.activity_web
     }
 
+    override fun initListener() {
+
+    }
+
     override fun initData() {
-        super.initData()
         val url = intent.getStringExtra(INTENT_KEY_WEB_URL)
         val title = intent.getStringExtra(INTENT_KEY_WEB_TITLE)
-
         mBinding.toolBar.title = title ?: url ?: "没有传递URL"
         mBinding.webView.loadUrl(url ?: "")
+        mBinding.toolBar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     companion object {

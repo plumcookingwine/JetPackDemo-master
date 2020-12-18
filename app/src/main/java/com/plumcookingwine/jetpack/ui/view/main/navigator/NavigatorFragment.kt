@@ -1,4 +1,4 @@
-package com.plumcookingwine.jetpack.ui.main.navigator
+package com.plumcookingwine.jetpack.ui.view.main.navigator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

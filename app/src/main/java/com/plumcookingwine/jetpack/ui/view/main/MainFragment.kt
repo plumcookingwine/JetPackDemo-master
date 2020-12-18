@@ -1,4 +1,4 @@
-package com.plumcookingwine.jetpack.ui.main
+package com.plumcookingwine.jetpack.ui.view.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle

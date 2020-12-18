@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".ui.main.home.HomeFragment">
+    tools:context=".ui.view.main.home.HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"

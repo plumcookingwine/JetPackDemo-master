@@ -11,10 +11,12 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
+import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
 import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import com.plumcookingwine.jetpack.R
 import com.plumcookingwine.jetpack.base.delegate.FragmentDataBindingDelegate
 import com.plumcookingwine.jetpack.loadsir.EmptyCallback
 import com.plumcookingwine.jetpack.loadsir.ErrorCallback
@@ -100,6 +102,8 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected open fun reload() {}
+
+    fun nav(id: Int = R.id.fragment_main) = mActivity.let { Navigation.findNavController(it, id) }
 
     fun registerLoadSir(liveData: LiveData<LoadResult>, view: View) {
 

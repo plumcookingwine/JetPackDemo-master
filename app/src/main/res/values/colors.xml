@@ -9,6 +9,7 @@
     <color name="colorPrimary">#4F91FF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_transparent_80">#80FFFFFF</color>
 
     <color name="common_color_line">#FFF0F0F0</color>
 

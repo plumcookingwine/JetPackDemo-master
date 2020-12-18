@@ -7,12 +7,21 @@
 
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.plumcookingwine.jetpack.ui.main.MainFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.MainFragment"
         tools:layout="@layout/fragment_main">
 
+        <action
+            android:id="@+id/main_to_search"
+            app:destination="@id/fragment_search" />
 
     </fragment>
 
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.plumcookingwine.jetpack.ui.view.search.SearchFragment"
+        tools:layout="@layout/fragment_search">
+
+    </fragment>
 
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.plumcookingwine.jetpack.ui.main.home
+package com.plumcookingwine.jetpack.ui.view.main.home
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +11,7 @@ import com.plumcookingwine.jetpack.base.ui.fragment.BaseFragment
 import com.plumcookingwine.jetpack.databinding.FragmentHomeBinding
 import com.plumcookingwine.jetpack.loadsir.LoadResult
 import com.plumcookingwine.jetpack.recyclerview.CommonLinearDivider
-import com.plumcookingwine.jetpack.ui.main.home.adapter.HomeArticleAdapter
+import com.plumcookingwine.jetpack.ui.adapter.ArticleListAdapter
 import com.plumcookingwine.jetpack.weigets.HomeBannerView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -26,33 +26,31 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var mHomeBannerView: HomeBannerView
 
-    private lateinit var mAdapter: HomeArticleAdapter
+    private lateinit var mAdapter: ArticleListAdapter
 
     override fun layoutId(): Int {
         return R.layout.fragment_home
     }
 
     override fun initListener() {
-        super.initListener()
 
         registerLoadSir(mHomeViewModel.mLoadPageLiveData, mBinding.layRefresh)
 
-        mHomeViewModel.mBannerList.observe(this@HomeFragment) {
+        mHomeViewModel.mBannerList.observe(this) {
             it?.let { mHomeBannerView.setData(it) }
         }
 
         mBinding.ivSearch.setOnClickListener {
-
+            nav().navigate(R.id.main_to_search)
         }
 
         mBinding.layRefresh.setOnRefreshListener {
-            mHomeViewModel.getBannerList()
-            mAdapter.refresh()
+            reload()
         }
     }
 
     override fun initData() {
-        mAdapter = HomeArticleAdapter().apply {
+        mAdapter = ArticleListAdapter().apply {
             mHomeBannerView = HomeBannerView(mActivity)
             addHeaderView(mHomeBannerView)
             setOnItemClickListener { _, data ->
@@ -69,6 +67,7 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun lazyLoad() {
+
         mHomeViewModel.getBannerList()
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -101,7 +100,6 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun reload() {
-        super.reload()
         mHomeViewModel.getBannerList()
         mAdapter.refresh()
     }

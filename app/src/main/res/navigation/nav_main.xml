@@ -5,33 +5,36 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/home_fragment">
 
+
     <single_fragment
         android:id="@+id/home_fragment"
-        android:name="com.plumcookingwine.jetpack.ui.main.home.HomeFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.home.HomeFragment"
         android:label="@string/main_tab_home"
         tools:layout="@layout/fragment_home" />
 
+
     <single_fragment
         android:id="@+id/system_fragment"
-        android:name="com.plumcookingwine.jetpack.ui.main.system.SystemFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.system.SystemFragment"
         android:label="@string/main_tab_system"
         tools:layout="@layout/fragment_system" />
 
     <single_fragment
         android:id="@+id/navigator_fragment"
-        android:name="com.plumcookingwine.jetpack.ui.main.navigator.NavigatorFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.navigator.NavigatorFragment"
         android:label="@string/main_tab_navigator"
         tools:layout="@layout/fragment_navigator" />
 
     <single_fragment
         android:id="@+id/project_fragment"
-        android:name="com.plumcookingwine.jetpack.ui.main.project.ProjectFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.project.ProjectFragment"
         android:label="@string/main_tab_project"
         tools:layout="@layout/fragment_project" />
 
     <single_fragment
         android:id="@+id/personal_fragment"
-        android:name="com.plumcookingwine.jetpack.ui.main.personal.PersonalFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.personal.PersonalFragment"
         android:label="@string/main_tab_personal"
         tools:layout="@layout/fragment_personal" />
+
 </navigation>

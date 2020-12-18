@@ -1,4 +1,4 @@
-package com.plumcookingwine.jetpack.ui.main.home.adapter
+package com.plumcookingwine.jetpack.ui.adapter
 
 /**
  * Created by kangf on 2020/12/17.

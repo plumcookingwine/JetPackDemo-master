@@ -17,6 +17,8 @@
 
     <string name="tag_fresh">新</string>
     <string name="tag_stick">置顶</string>
-
     <string name="footer_retry">重试</string>
+    <string name="search">搜索</string>
+    <string name="prompt_search_for_all">搜索关键词以空格形式隔开</string>
+
 </resources>
