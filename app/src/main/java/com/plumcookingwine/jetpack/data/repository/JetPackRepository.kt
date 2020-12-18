@@ -8,10 +8,7 @@ import com.plumcookingwine.jetpack.data.entity.HomeBannerData
 import com.plumcookingwine.jetpack.data.repository.remote.HomeArticleDataSource
 import com.plumcookingwine.jetpack.network.AndroidWanService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 /**
  * Created by kangf on 2020/12/14.
@@ -33,9 +30,7 @@ class JetPackRepository(
     }
 
     override fun getArticleList(): Flow<PagingData<HomeArticleData.Data>> {
-        return Pager(pagingConfig) {
-            HomeArticleDataSource(service)
-        }.flow
+        return Pager(pagingConfig) { HomeArticleDataSource(service) }.flow
     }
 
 }

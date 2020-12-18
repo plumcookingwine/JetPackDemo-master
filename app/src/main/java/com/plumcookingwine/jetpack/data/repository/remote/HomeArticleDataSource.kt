@@ -12,13 +12,26 @@ class HomeArticleDataSource(private val service: AndroidWanService) :
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HomeArticleData.Data> {
         return try {
-            val response = service.getArticleList(params.key ?: 0)
+            val page = params.key ?: 0
+            val stickMutableList = mutableListOf<HomeArticleData.Data>()
+            if (page == 0) {
+                val stickResponse = service.getStickArticle()
+                stickResponse.data?.let {
+                    it.forEach { data -> data.isTicked = true }
+                    stickMutableList.addAll(it)
+                }
+            } else {
+                stickMutableList.clear()
+            }
+            val response = service.getArticleList(page)
+            response.data?.datas?.let { stickMutableList.addAll(it) }
             LoadResult.Page(
-                data = response.data?.datas ?: mutableListOf(),
+                data = stickMutableList,
                 prevKey = null,
                 nextKey = (response.data?.curPage ?: 0),
             )
         } catch (e: Exception) {
+            e.printStackTrace()
             LoadResult.Error(e)
         }
     }

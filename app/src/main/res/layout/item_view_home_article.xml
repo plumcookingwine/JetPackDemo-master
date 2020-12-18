@@ -50,7 +50,7 @@
             android:text="@string/tag_stick"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_12sp"
-            android:visibility="@{data.fresh ? View.VISIBLE : View.GONE}"
+            android:visibility="@{data.isTicked ? View.VISIBLE : View.GONE}"
             app:layout_constraintLeft_toRightOf="@id/tvFresh"
             app:layout_constraintTop_toTopOf="parent" />
 

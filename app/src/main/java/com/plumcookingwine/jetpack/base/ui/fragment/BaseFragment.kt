@@ -99,16 +99,23 @@ abstract class BaseFragment : Fragment() {
         return false
     }
 
+    protected open fun reload() {}
+
     fun registerLoadSir(liveData: LiveData<LoadResult>, view: View) {
 
+        var pageManager: LoadService<Callback>? = null
+
         @Suppress("UNCHECKED_CAST")
-        val pageManager = LoadSir.getDefault().register(view)
+        pageManager = LoadSir.getDefault().register(view) {
+            pageManager?.showCallback(LoadingCallback::class.java)
+            reload()
+        }
             .setCallBack(LoadingCallback::class.java) { _, _ -> }
             .setCallBack(EmptyCallback::class.java) { _, _ -> }
-            .setCallBack(ErrorCallback::class.java) { _, _ -> } as LoadService<Callback>
+            .setCallBack(ErrorCallback::class.java) { _, _ -> }
+                as LoadService<Callback>
 
         pageManager.showCallback(LoadingCallback::class.java)
-
         liveData.observe(this) {
             when (it) {
                 is LoadResult.LOADING -> pageManager.showCallback(LoadingCallback::class.java)

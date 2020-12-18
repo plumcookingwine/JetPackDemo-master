@@ -38,11 +38,7 @@ class HomeViewModel @ViewModelInject constructor(
 
 
     fun getArticleList(): LiveData<PagingData<HomeArticleData.Data>> {
-        return repository.getArticleList().cachedIn(viewModelScope)
-            .onStart {
-                mLoadPageLiveData.value = LoadResult.LOADING
-            }
-            .asLiveData()
+        return repository.getArticleList().cachedIn(viewModelScope).asLiveData()
     }
 
 }

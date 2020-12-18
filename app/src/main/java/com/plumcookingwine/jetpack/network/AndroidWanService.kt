@@ -15,4 +15,7 @@ interface AndroidWanService {
 
     @GET("article/list/{page}/json")
     suspend fun getArticleList(@Path("page") page: Int): BaseResponse<HomeArticleData>
+
+    @GET("article/top/json")
+    suspend fun getStickArticle(): BaseResponse<List<HomeArticleData.Data>>
 }

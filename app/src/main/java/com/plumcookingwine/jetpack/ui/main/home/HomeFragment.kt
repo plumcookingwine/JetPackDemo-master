@@ -2,6 +2,7 @@ package com.plumcookingwine.jetpack.ui.main.home
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.plumcookingwine.jetpack.R
 import com.plumcookingwine.jetpack.WebActivity
@@ -13,6 +14,7 @@ import com.plumcookingwine.jetpack.recyclerview.CommonLinearDivider
 import com.plumcookingwine.jetpack.ui.main.home.adapter.HomeArticleAdapter
 import com.plumcookingwine.jetpack.weigets.HomeBannerView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
@@ -62,8 +64,7 @@ class HomeFragment : BaseFragment() {
             it.layoutManager = LinearLayoutManager(mActivity)
             it.setHasFixedSize(true)
             it.addItemDecoration(CommonLinearDivider(mActivity))
-            it.adapter = mAdapter
-                .withLoadStateHeaderAndFooter(FooterAdapter(mAdapter), FooterAdapter(mAdapter))
+            it.adapter = mAdapter.withLoadStateFooter(FooterAdapter(mAdapter))
         }
     }
 
@@ -74,10 +75,34 @@ class HomeFragment : BaseFragment() {
             mHomeViewModel.getArticleList().observe(this@HomeFragment) {
                 mHomeViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
                 mBinding.layRefresh.isRefreshing = false
+
                 it?.let {
                     mAdapter.submitData(lifecycle, it)
                 }
             }
+
+            mAdapter.loadStateFlow.collectLatest {
+                when (it.refresh) {
+                    is LoadState.Loading -> {
+                        if (mAdapter.itemCount <= 0) {
+                            mHomeViewModel.mLoadPageLiveData.value = LoadResult.LOADING
+                        }
+                    }
+                    is LoadState.Error -> {
+                        val error = (it.refresh as LoadState.Error).error.message
+                        mHomeViewModel.mLoadPageLiveData.value = LoadResult.ERROR(error)
+                    }
+                    else -> {
+                        mHomeViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
+                    }
+                }
+            }
         }
+    }
+
+    override fun reload() {
+        super.reload()
+        mHomeViewModel.getBannerList()
+        mAdapter.refresh()
     }
 }

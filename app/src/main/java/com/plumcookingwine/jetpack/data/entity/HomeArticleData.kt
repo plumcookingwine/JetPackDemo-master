@@ -1,10 +1,6 @@
 package com.plumcookingwine.jetpack.data.entity
 
-import androidx.paging.DifferCallback
 import androidx.recyclerview.widget.DiffUtil
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 /**
  * Created by kangf on 2020/12/14.
@@ -55,7 +51,8 @@ data class HomeArticleData(
         val type: Int?,
         val userId: Int?,
         val visible: Int?,
-        val zan: Int?
+        val zan: Int?,
+        var isTicked: Boolean = false
     ) {
 
         companion object {
