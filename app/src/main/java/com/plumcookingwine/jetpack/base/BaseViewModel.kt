@@ -9,8 +9,10 @@ import com.plumcookingwine.jetpack.loadsir.LoadResult
  */
 open class BaseViewModel : ViewModel() {
 
-    val mLoadPageLiveData by lazy {
-        MutableLiveData<LoadResult>()
-    }
+    // 请求状态
+    val mLoadPageLiveData by lazy { MutableLiveData<LoadResult>() }
+
+    // 请求错误
+    val mErrorLiveData by lazy { MutableLiveData<String>() }
 
 }

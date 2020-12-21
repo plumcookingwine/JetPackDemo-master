@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -129,6 +130,14 @@ abstract class BaseFragment : Fragment() {
                 else -> pageManager.showSuccess()
             }
 
+        }
+    }
+
+    fun registerRequestErrorLiveData(liveData: LiveData<String>, action: (String) -> Boolean) {
+        liveData.observe(this) {
+            if (!action(it)) {
+                Toast.makeText(mActivity, it, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

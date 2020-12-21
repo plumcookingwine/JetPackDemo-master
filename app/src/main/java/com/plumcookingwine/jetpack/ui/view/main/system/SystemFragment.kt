@@ -1,60 +1,77 @@
 package com.plumcookingwine.jetpack.ui.view.main.system
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.activityViewModels
+import com.google.android.material.tabs.TabLayoutMediator
 import com.plumcookingwine.jetpack.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.plumcookingwine.jetpack.base.ui.fragment.BaseFragment
+import com.plumcookingwine.jetpack.data.entity.SystemTabData
+import com.plumcookingwine.jetpack.databinding.FragmentSystemBinding
+import com.plumcookingwine.jetpack.loadsir.LoadResult
+import com.plumcookingwine.jetpack.ui.adapter.SystemPageAdapter
 
 /**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * 首页 - 体系
  */
-class SystemFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class SystemFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val mBinding: FragmentSystemBinding by binding()
+
+    private val mViewModel: SystemViewModel by activityViewModels()
+
+    private lateinit var mArticleAdapter: SystemPageAdapter
+
+    private val mTabs = mutableListOf<SystemTabData>()
+
+    override fun layoutId(): Int {
+        return R.layout.fragment_system
+    }
+
+    override fun initData() {
+        registerLoadSir(mViewModel.mLoadPageLiveData, mBinding.layRoot)
+        registerRequestErrorLiveData(mViewModel.mErrorLiveData) {
+            mViewModel.mLoadPageLiveData.value = LoadResult.ERROR(it)
+            false
+        }
+
+        mArticleAdapter = SystemPageAdapter(this, mTabs)
+        mBinding.viewPager.adapter = mArticleAdapter
+
+        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
+            tab.text = mTabs[position].name
+        }.attach()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun lazyLoad() {
+        super.lazyLoad()
+        mViewModel.getTabSystem().observe(this) { list ->
+            mBinding.viewPager.offscreenPageLimit = list?.size ?: 1
+            list?.let {
+                mTabs.clear()
+                mTabs.addAll(it)
+                mArticleAdapter.notifyDataSetChanged()
+                mViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
+//                // 启用闲时加载，防止Tab数量过多造成卡顿
+//                Looper.myLooper()?.queue?.addIdleHandler {
+//
+//                    false
+//                }
+
+
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_system, container, false)
+    override fun enableLazyLoad(): Boolean {
+        return true
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SystemFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun reload() {
+        super.reload()
+
     }
+
+
 }

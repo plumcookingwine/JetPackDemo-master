@@ -13,6 +13,7 @@
         <bitmap
             android:gravity="top"
             android:src="@drawable/icon_splash" />
+
     </item>
 
 </layer-list>

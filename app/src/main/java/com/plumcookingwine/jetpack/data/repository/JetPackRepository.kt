@@ -5,6 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.plumcookingwine.jetpack.data.entity.HomeArticleData
 import com.plumcookingwine.jetpack.data.entity.HomeBannerData
+import com.plumcookingwine.jetpack.data.entity.SystemTabData
+import com.plumcookingwine.jetpack.data.repository.remote.ArticleDataSource
 import com.plumcookingwine.jetpack.data.repository.remote.HomeArticleDataSource
 import com.plumcookingwine.jetpack.network.AndroidWanService
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +21,7 @@ class JetPackRepository(
     // private val db: AppDatabase
 ) : Repository {
 
-    override suspend fun getBannerList(): Flow<List<HomeBannerData>?> {
+    override  fun getBannerList(): Flow<List<HomeBannerData>?> {
         return flow {
             val data = service.getBannerList()
             emit(data)
@@ -32,5 +34,19 @@ class JetPackRepository(
     override fun getArticleList(): Flow<PagingData<HomeArticleData.Data>> {
         return Pager(pagingConfig) { HomeArticleDataSource(service) }.flow
     }
+
+    override fun getArticleList(cid: Int?): Flow<PagingData<HomeArticleData.Data>> {
+        return Pager(pagingConfig) { ArticleDataSource(service) }.flow
+    }
+
+    override fun getSystemTab(): Flow<List<SystemTabData>?> {
+        return flow {
+            val data = service.getSystemTab()
+            emit(data)
+        }.map {
+            it.data
+        }.flowOn(Dispatchers.IO)
+    }
+
 
 }

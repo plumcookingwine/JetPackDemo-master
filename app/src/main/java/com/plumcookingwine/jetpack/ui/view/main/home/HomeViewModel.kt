@@ -10,7 +10,6 @@ import com.plumcookingwine.jetpack.data.entity.HomeBannerData
 import com.plumcookingwine.jetpack.data.repository.Repository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 /**
  * Created by kangf on 2020/12/14.
@@ -20,19 +19,10 @@ class HomeViewModel @ViewModelInject constructor(
     private val repository: Repository
 ) : BaseViewModel() {
 
-    val mBannerList = MutableLiveData<List<HomeBannerData>>()
-
-    fun getBannerList() {
-        viewModelScope.launch {
-            repository.getBannerList()
-                .catch {
-
-                }
-                .collectLatest {
-                    mBannerList.value = it
-                }
-        }
-
+    fun getBannerList(): LiveData<List<HomeBannerData>?> {
+        return repository.getBannerList().catch {
+            mErrorLiveData.value =  it.message
+        }.asLiveData()
     }
 
 

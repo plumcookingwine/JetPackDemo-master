@@ -11,7 +11,7 @@ object JetPackFactory {
     fun makePokemonRepository(service: AndroidWanService): Repository =
         JetPackRepository(service, pagingConfig)
 
-    val pagingConfig = PagingConfig(
+    private val pagingConfig = PagingConfig(
         // 每页显示的数据的大小
         pageSize = 20,
 
@@ -22,19 +22,8 @@ object JetPackFactory {
         // 默认为 pageSize
         prefetchDistance = 4,
 
-        /**
-         * 初始化加载数量，默认为 pageSize * 3
-         *
-         * internal const val DEFAULT_INITIAL_PAGE_MULTIPLIER = 3
-         * val initialLoadSize: Int = pageSize * DEFAULT_INITIAL_PAGE_MULTIPLIER
-         */
 
-        /**
-         * 初始化加载数量，默认为 pageSize * 3
-         *
-         * internal const val DEFAULT_INITIAL_PAGE_MULTIPLIER = 3
-         * val initialLoadSize: Int = pageSize * DEFAULT_INITIAL_PAGE_MULTIPLIER
-         */
+        // 初始化加载数量，默认为 pageSize * 3
         initialLoadSize = 20
     )
 
