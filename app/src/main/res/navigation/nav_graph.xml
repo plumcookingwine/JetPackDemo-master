@@ -12,7 +12,9 @@
 
         <action
             android:id="@+id/action_splash_to_main"
-            app:destination="@id/fragment_main" />
+            app:destination="@id/fragment_main"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out" />
 
     </fragment>
 
@@ -23,7 +25,11 @@
 
         <action
             android:id="@+id/main_to_search"
-            app:destination="@id/fragment_search" />
+            app:destination="@id/fragment_search"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/pop_left_in"
+            app:popExitAnim="@anim/pop_left_out" />
 
     </fragment>
 

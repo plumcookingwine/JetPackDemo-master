@@ -3,7 +3,7 @@ package com.plumcookingwine.jetpack.recyclerview
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.plumcookingwine.jetpack.R
-import com.plumcookingwine.jetpack.utils.getResColor
+import com.plumcookingwine.jetpack.utils.ResUtils
 import com.yanyusong.y_divideritemdecoration.Y_Divider
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder
 
@@ -20,7 +20,7 @@ class CommonLinearDivider(
     private var mDividerColor: Int = 0
 
     init {
-        mDividerColor = getResColor(colorId)
+        mDividerColor = ResUtils.getResColor(colorId)
     }
 
     override fun getDivider(itemPosition: Int, parent: RecyclerView): Y_Divider {

@@ -36,7 +36,6 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
                 drawChildLeftVertical(
                     child,
                     c,
-                    parent,
                     divider.getLeftSideLine().getColor(),
                     lineWidthPx,
                     startPaddingPx,
@@ -52,7 +51,6 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
                 drawChildTopHorizontal(
                     child,
                     c,
-                    parent,
                     divider.topSideLine.getColor(),
                     lineWidthPx,
                     startPaddingPx,
@@ -68,7 +66,6 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
                 drawChildRightVertical(
                     child,
                     c,
-                    parent,
                     divider.getRightSideLine().getColor(),
                     lineWidthPx,
                     startPaddingPx,
@@ -84,7 +81,6 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
                 drawChildBottomHorizontal(
                     child,
                     c,
-                    parent,
                     divider.getBottomSideLine().getColor(),
                     lineWidthPx,
                     startPaddingPx,
@@ -97,22 +93,19 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
     private fun drawChildBottomHorizontal(
         child: View,
         c: Canvas,
-        parent: RecyclerView,
         @ColorInt color: Int,
         lineWidthPx: Int,
         startPaddingPx: Int,
         endPaddingPx: Int
     ) {
-        var leftPadding = 0
-        var rightPadding = 0
-        leftPadding = if (startPaddingPx <= 0) {
+        val leftPadding: Int = if (startPaddingPx <= 0) {
             //padding<0当作==0处理
             //上下左右默认分割线的两头都出头一个分割线的宽度，避免十字交叉的时候，交叉点是空白
             -lineWidthPx
         } else {
             startPaddingPx
         }
-        rightPadding = if (endPaddingPx <= 0) {
+        val rightPadding: Int = if (endPaddingPx <= 0) {
             lineWidthPx
         } else {
             -endPaddingPx
@@ -130,22 +123,19 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
     private fun drawChildTopHorizontal(
         child: View,
         c: Canvas,
-        parent: RecyclerView,
         @ColorInt color: Int,
         lineWidthPx: Int,
         startPaddingPx: Int,
         endPaddingPx: Int
     ) {
-        var leftPadding = 0
-        var rightPadding = 0
-        leftPadding = if (startPaddingPx <= 0) {
+        val leftPadding: Int = if (startPaddingPx <= 0) {
             //padding<0当作==0处理
             //上下左右默认分割线的两头都出头一个分割线的宽度，避免十字交叉的时候，交叉点是空白
             -lineWidthPx
         } else {
             startPaddingPx
         }
-        rightPadding = if (endPaddingPx <= 0) {
+        val rightPadding: Int = if (endPaddingPx <= 0) {
             lineWidthPx
         } else {
             -endPaddingPx
@@ -163,22 +153,19 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
     private fun drawChildLeftVertical(
         child: View,
         c: Canvas,
-        parent: RecyclerView,
         @ColorInt color: Int,
         lineWidthPx: Int,
         startPaddingPx: Int,
         endPaddingPx: Int
     ) {
-        var topPadding = 0
-        var bottomPadding = 0
-        topPadding = if (startPaddingPx <= 0) {
+        val topPadding: Int = if (startPaddingPx <= 0) {
             //padding<0当作==0处理
             //上下左右默认分割线的两头都出头一个分割线的宽度，避免十字交叉的时候，交叉点是空白
             -lineWidthPx
         } else {
             startPaddingPx
         }
-        bottomPadding = if (endPaddingPx <= 0) {
+        val bottomPadding: Int = if (endPaddingPx <= 0) {
             lineWidthPx
         } else {
             -endPaddingPx
@@ -196,22 +183,19 @@ abstract class BaseDividerItemDecoration(context: Context?) : RecyclerView.ItemD
     private fun drawChildRightVertical(
         child: View,
         c: Canvas,
-        parent: RecyclerView,
         @ColorInt color: Int,
         lineWidthPx: Int,
         startPaddingPx: Int,
         endPaddingPx: Int
     ) {
-        var topPadding = 0
-        var bottomPadding = 0
-        topPadding = if (startPaddingPx <= 0) {
+        val topPadding: Int = if (startPaddingPx <= 0) {
             //padding<0当作==0处理
             //上下左右默认分割线的两头都出头一个分割线的宽度，避免十字交叉的时候，交叉点是空白
             -lineWidthPx
         } else {
             startPaddingPx
         }
-        bottomPadding = if (endPaddingPx <= 0) {
+        val bottomPadding: Int = if (endPaddingPx <= 0) {
             lineWidthPx
         } else {
             -endPaddingPx

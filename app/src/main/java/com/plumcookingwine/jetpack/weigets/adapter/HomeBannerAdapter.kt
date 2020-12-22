@@ -11,8 +11,8 @@ import com.youth.banner.adapter.BannerAdapter
 /**
  * Created by kangf on 2020/12/15.
  */
-class HomeBannerAdapter(datas: MutableList<HomeBannerData>?) :
-    BannerAdapter<HomeBannerData, HomeBannerAdapter.BannerViewHolder>(datas) {
+class HomeBannerAdapter :
+    BannerAdapter<HomeBannerData, HomeBannerAdapter.BannerViewHolder>(mutableListOf()) {
 
 
     inner class BannerViewHolder(view: ImageView) : RecyclerView.ViewHolder(view)

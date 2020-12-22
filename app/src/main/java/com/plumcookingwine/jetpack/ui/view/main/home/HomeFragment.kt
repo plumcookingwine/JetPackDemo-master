@@ -32,6 +32,10 @@ class HomeFragment : BaseFragment() {
         return R.layout.fragment_home
     }
 
+    override fun enableLazyLoad(): Boolean {
+        return true
+    }
+
     override fun initListener() {
         registerLoadSir(mHomeViewModel.mLoadPageLiveData, mBinding.layRefresh)
         registerRequestErrorLiveData(mHomeViewModel.mErrorLiveData) { false }
@@ -42,6 +46,16 @@ class HomeFragment : BaseFragment() {
 
         mBinding.layRefresh.setOnRefreshListener {
             reload()
+        }
+
+        mHomeViewModel.mArticleList.observe(this@HomeFragment) {
+            it?.let {
+                mAdapter.submitData(lifecycle, it)
+            }
+        }
+
+        mHomeViewModel.mBannerLiveData.observe(this@HomeFragment) {
+            it?.let { mHomeBannerView.setData(it) }
         }
     }
 
@@ -64,23 +78,7 @@ class HomeFragment : BaseFragment() {
 
     override fun lazyLoad() {
 
-        mHomeViewModel.getBannerList()
-
         viewLifecycleOwner.lifecycleScope.launch {
-
-            // delay(2000)
-
-            mHomeViewModel.getArticleList().observe(this@HomeFragment) {
-                mBinding.layRefresh.isRefreshing = false
-
-                it?.let {
-                    mAdapter.submitData(lifecycle, it)
-                }
-            }
-
-            mHomeViewModel.getBannerList().observe(this@HomeFragment) {
-                it?.let { mHomeBannerView.setData(it) }
-            }
 
             mAdapter.loadStateFlow.collectLatest {
                 when (it.refresh) {
@@ -90,18 +88,24 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                     is LoadState.Error -> {
+                        mBinding.layRefresh.isRefreshing = false
                         val error = (it.refresh as LoadState.Error).error.message
                         mHomeViewModel.mLoadPageLiveData.value = LoadResult.ERROR(error)
                     }
-                    else -> {
+                    is LoadState.NotLoading -> {
+                        mBinding.layRefresh.isRefreshing = false
                         mHomeViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
                     }
                 }
             }
         }
+
+
+        reload()
     }
 
     override fun reload() {
-        mAdapter.refresh()
+        mHomeViewModel.getArticleList()
+        mHomeViewModel.getBannerList()
     }
 }

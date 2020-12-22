@@ -19,21 +19,21 @@ class HomeBannerView @JvmOverloads constructor(
 
     private val mBinding: LayoutHomeBannerBinding by binding()
 
-    private val mBannerList = mutableListOf<HomeBannerData>()
-
     private var mAdapter: HomeBannerAdapter? = null
 
     override fun base() {
-        mAdapter = HomeBannerAdapter(mBannerList)
+
+        mAdapter = HomeBannerAdapter()
+
         mBinding.banner
             .addBannerLifecycleObserver(context as FragmentActivity)
             .setAdapter(mAdapter)
             .setLoopTime(5000)
             .indicator = CircleIndicator(context)
 
-        mAdapter?.setOnBannerListener { _, position ->
-            val data = mBannerList[position]
+        mAdapter?.setOnBannerListener { t, _ ->
 
+            val data = t as HomeBannerData
             WebActivity.toWebView(
                 context as FragmentActivity,
                 data.url, data.title
@@ -42,10 +42,7 @@ class HomeBannerView @JvmOverloads constructor(
     }
 
     override fun initData(t: List<HomeBannerData>) {
-        mBannerList.clear()
-        mBannerList.addAll(t)
-        mBinding.banner.currentItem = 0
-        mAdapter?.notifyDataSetChanged()
+        mBinding.banner.setDatas(t)
     }
 
 }
