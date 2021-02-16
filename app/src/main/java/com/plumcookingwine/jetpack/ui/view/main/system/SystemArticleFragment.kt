@@ -1,7 +1,7 @@
 package com.plumcookingwine.jetpack.ui.view.main.system
 
 import android.os.Bundle
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +13,7 @@ import com.plumcookingwine.jetpack.databinding.FragmentSystemArticleBinding
 import com.plumcookingwine.jetpack.loadsir.LoadResult
 import com.plumcookingwine.jetpack.recyclerview.CommonLinearDivider
 import com.plumcookingwine.jetpack.ui.adapter.ArticleListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -21,9 +22,10 @@ import kotlinx.coroutines.launch
  *
  * 体系文章列表
  */
+@AndroidEntryPoint
 class SystemArticleFragment : BaseFragment() {
 
-    private val mViewModel: SystemViewModel by activityViewModels()
+    private val mViewModel: SystemViewModel by viewModels()
 
     private val mBinding: FragmentSystemArticleBinding by binding()
 
@@ -42,9 +44,6 @@ class SystemArticleFragment : BaseFragment() {
 
     override fun initListener() {
         super.initListener()
-        mBinding.layRefresh.setOnRefreshListener {
-            mAdapter.refresh()
-        }
     }
 
     override fun initData() {
@@ -69,11 +68,6 @@ class SystemArticleFragment : BaseFragment() {
     override fun lazyLoad() {
 
         viewLifecycleOwner.lifecycleScope.launch {
-            mViewModel.getArticleList(mCid).observe(this@SystemArticleFragment) {
-                mBinding.layRefresh.isRefreshing = false
-                mAdapter.submitData(lifecycle, it)
-            }
-
             mAdapter.loadStateFlow.collectLatest {
                 when (it.refresh) {
                     is LoadState.Loading -> {
@@ -93,10 +87,16 @@ class SystemArticleFragment : BaseFragment() {
         }
 
 
+
+        mViewModel.getArticleList(mCid)
     }
 
     override fun enableLazyLoad(): Boolean {
         return true
+    }
+
+    override fun reload() {
+        mViewModel.getArticleList(mCid)
     }
 
     companion object {

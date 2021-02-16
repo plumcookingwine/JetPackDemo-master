@@ -1,7 +1,6 @@
 package com.plumcookingwine.jetpack.di.repository
 
 import com.plumcookingwine.jetpack.data.JetPackFactory
-import com.plumcookingwine.jetpack.data.database.AppDatabase
 import com.plumcookingwine.jetpack.data.repository.Repository
 import com.plumcookingwine.jetpack.network.AndroidWanService
 import dagger.Module

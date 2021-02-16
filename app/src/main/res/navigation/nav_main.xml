@@ -15,9 +15,9 @@
 
     <single_fragment
         android:id="@+id/system_fragment"
-        android:name="com.plumcookingwine.jetpack.ui.view.main.system.SystemFragment"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.system.SystemTabFragment"
         android:label="@string/main_tab_system"
-        tools:layout="@layout/fragment_system" />
+        tools:layout="@layout/fragment_system_tab" />
 
     <single_fragment
         android:id="@+id/navigator_fragment"

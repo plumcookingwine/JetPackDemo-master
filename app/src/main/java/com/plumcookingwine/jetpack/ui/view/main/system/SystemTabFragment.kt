@@ -10,8 +10,11 @@ import com.plumcookingwine.jetpack.loadsir.LoadResult
 import com.plumcookingwine.jetpack.ui.adapter.SystemPageAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * 首页 - 体系
+ */
 @AndroidEntryPoint
-class SystemFragment : BaseFragment() {
+class SystemTabFragment : BaseFragment() {
 
     private val mBinding: FragmentSystemBinding by binding()
 

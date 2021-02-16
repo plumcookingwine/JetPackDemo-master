@@ -21,7 +21,7 @@ class JetPackRepository(
     // private val db: AppDatabase
 ) : Repository {
 
-    override  fun getBannerList(): Flow<List<HomeBannerData>?> {
+    override fun getBannerList(): Flow<List<HomeBannerData>?> {
         return flow {
             val data = service.getBannerList()
             emit(data)
