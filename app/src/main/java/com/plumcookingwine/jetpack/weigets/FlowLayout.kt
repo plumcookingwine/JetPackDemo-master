@@ -15,7 +15,10 @@ class FlowLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
+    // 子控件默认的横向间距
     private var mWidthSpacing = 16
+
+    // 子控件默认的纵向间距
     private var mHeightSpacing = 10
 
     // 纪录总行数
@@ -67,8 +70,9 @@ class FlowLayout @JvmOverloads constructor(
             val childWidth = childView.measuredWidth
             val childHeight = childView.measuredHeight
 
-            // 如果测量当前子view宽度超过了父控件能给的最大宽度，那么就换行吧
-            if (lineUsedWidth + mWidthSpacing + childWidth > widthSize) {
+            // 如果测量当前子view宽度超过了父控件能给的最大宽度，那么就换行吧，
+            // modify: 2021.02.16 注意最大宽度需要减去自身的padding
+            if (lineUsedWidth + mWidthSpacing + childWidth > widthSize - paddingLeft - paddingRight) {
                 mAllLines.add(lineViews)
                 mLineHeights.add(lineHeight)
                 applyWidth = applyWidth.coerceAtLeast(lineUsedWidth + mWidthSpacing)

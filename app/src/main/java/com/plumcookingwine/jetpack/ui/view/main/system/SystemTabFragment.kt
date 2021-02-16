@@ -1,13 +1,12 @@
 package com.plumcookingwine.jetpack.ui.view.main.system
 
 import androidx.fragment.app.viewModels
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.plumcookingwine.jetpack.R
 import com.plumcookingwine.jetpack.base.ui.fragment.BaseFragment
-import com.plumcookingwine.jetpack.data.entity.SystemTabData
-import com.plumcookingwine.jetpack.databinding.FragmentSystemBinding
+import com.plumcookingwine.jetpack.databinding.FragmentSystemTabBinding
 import com.plumcookingwine.jetpack.loadsir.LoadResult
-import com.plumcookingwine.jetpack.ui.adapter.SystemPageAdapter
+import com.plumcookingwine.jetpack.ui.adapter.SystemTabAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -16,27 +15,20 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SystemTabFragment : BaseFragment() {
 
-    private val mBinding: FragmentSystemBinding by binding()
+    private val mBinding: FragmentSystemTabBinding by binding()
 
     private val mViewModel: SystemViewModel by viewModels()
 
-    private lateinit var mArticleAdapter: SystemPageAdapter
-
-    private val mTabs = mutableListOf<SystemTabData>()
+    private lateinit var mAdapter : SystemTabAdapter
 
     override fun layoutId(): Int {
-        return R.layout.fragment_system
+        return R.layout.fragment_system_tab
     }
 
     override fun initListener() {
         mViewModel.mTabsLiveData.observe(this) { list ->
-            mBinding.viewPager.offscreenPageLimit = list?.size ?: 1
-            list?.let {
-                mTabs.clear()
-                mTabs.addAll(it)
-                mArticleAdapter.notifyDataSetChanged()
-                mViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
-            }
+            mAdapter.setData(list)
+            mViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
         }
     }
 
@@ -47,12 +39,14 @@ class SystemTabFragment : BaseFragment() {
             false
         }
 
-        mArticleAdapter = SystemPageAdapter(this, mTabs)
-        mBinding.viewPager.adapter = mArticleAdapter
+        mAdapter = SystemTabAdapter()
 
-        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
-            tab.text = mTabs[position].name
-        }.attach()
+        mBinding.rvSystem.apply {
+            layoutManager = LinearLayoutManager(mActivity)
+            setHasFixedSize(true)
+            adapter = mAdapter
+        }
+
     }
 
     override fun lazyLoad() {

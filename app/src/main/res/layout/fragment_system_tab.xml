@@ -1,107 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:titleTextAppearance="@style/common_toolbar_theme">
+    <data>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/main_tab_system"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp" />
-
-            <ImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:contentDescription="@string/app_name"
-                android:padding="@dimen/dp_10"
-                android:src="@drawable/ic_search" />
-
-
-        </FrameLayout>
-
-    </androidx.appcompat.widget.Toolbar>
+    </data>
 
     <LinearLayout
-        android:id="@+id/layRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:titleTextAppearance="@style/common_toolbar_theme">
 
-        <com.plumcookingwine.jetpack.weigets.FlowLayout
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/main_tab_system"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <ImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/ic_search" />
+
+
+            </FrameLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/layRoot"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSystem"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="123123123123123123123123123123" />
+                tools:listitem="@layout/item_system_tab" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1233" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123" />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123123123123123" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123123123" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123123" />
-
-        </com.plumcookingwine.jetpack.weigets.FlowLayout>
 
     </LinearLayout>
-
-
-</LinearLayout>
+</layout>
