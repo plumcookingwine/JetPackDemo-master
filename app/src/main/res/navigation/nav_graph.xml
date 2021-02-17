@@ -31,12 +31,39 @@
             app:popEnterAnim="@anim/pop_left_in"
             app:popExitAnim="@anim/pop_left_out" />
 
+
+        <action
+            android:id="@+id/main_to_article_list"
+            app:destination="@id/fragment_article_list"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_left_out"
+            app:popEnterAnim="@anim/pop_left_in"
+            app:popExitAnim="@anim/pop_left_out" />
+
     </fragment>
 
     <fragment
         android:id="@+id/fragment_search"
         android:name="com.plumcookingwine.jetpack.ui.view.search.SearchFragment"
         tools:layout="@layout/fragment_search">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_article_list"
+        android:name="com.plumcookingwine.jetpack.ui.view.main.system.SystemFragment"
+        tools:layout="@layout/fragment_system">
+
+        <argument
+            android:name="tabData"
+            android:defaultValue="@null"
+            app:argType="com.plumcookingwine.jetpack.data.entity.SystemTabData"
+            app:nullable="true" />
+
+        <argument
+            android:name="tabCid"
+            android:defaultValue="0"
+            app:argType="integer" />
 
     </fragment>
 

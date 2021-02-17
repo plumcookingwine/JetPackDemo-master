@@ -1,21 +1,22 @@
 package com.plumcookingwine.jetpack.ui.view.main.system
 
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.plumcookingwine.jetpack.R
 import com.plumcookingwine.jetpack.base.ui.fragment.BaseFragment
 import com.plumcookingwine.jetpack.data.entity.SystemTabData
 import com.plumcookingwine.jetpack.databinding.FragmentSystemBinding
-import com.plumcookingwine.jetpack.loadsir.LoadResult
 import com.plumcookingwine.jetpack.ui.adapter.SystemPageAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SystemFragment : BaseFragment() {
 
-    private val mBinding: FragmentSystemBinding by binding()
+    private val args by navArgs<SystemFragmentArgs>()
 
-    private val mViewModel: SystemViewModel by viewModels()
+    private val mBinding: FragmentSystemBinding by binding()
 
     private lateinit var mArticleAdapter: SystemPageAdapter
 
@@ -25,44 +26,33 @@ class SystemFragment : BaseFragment() {
         return R.layout.fragment_system
     }
 
-    override fun initListener() {
-        mViewModel.mTabsLiveData.observe(this) { list ->
-            mBinding.viewPager.offscreenPageLimit = list?.size ?: 1
-            list?.let {
-                mTabs.clear()
-                mTabs.addAll(it)
-                mArticleAdapter.notifyDataSetChanged()
-                mViewModel.mLoadPageLiveData.value = LoadResult.SUCCESS
-            }
-        }
-    }
-
     override fun initData() {
-        registerLoadSir(mViewModel.mLoadPageLiveData, mBinding.layRoot)
-        registerRequestErrorLiveData(mViewModel.mErrorLiveData) {
-            mViewModel.mLoadPageLiveData.value = LoadResult.ERROR(it)
-            false
+
+        args.tabData?.children?.let { list ->
+            mTabs.clear()
+            mTabs.addAll(list)
         }
+
+        mBinding.toolbarTitle.text = args.tabData?.name ?: "体系"
 
         mArticleAdapter = SystemPageAdapter(this, mTabs)
         mBinding.viewPager.adapter = mArticleAdapter
-
         TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
             tab.text = mTabs[position].name
         }.attach()
     }
 
     override fun lazyLoad() {
-        mViewModel.getTabSystem()
+        lifecycleScope.launch {
+            kotlin.run outside@{
+                mTabs.forEachIndexed { index, systemTabData ->
+                    if (systemTabData.id == args.tabCid) {
+                        mBinding.viewPager.currentItem = index
+                        return@outside
+                    }
+                }
+            }
+        }
+
     }
-
-    override fun enableLazyLoad(): Boolean {
-        return true
-    }
-
-    override fun reload() {
-        mViewModel.getTabSystem()
-    }
-
-
 }

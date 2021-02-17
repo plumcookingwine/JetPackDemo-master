@@ -28,8 +28,8 @@ abstract class BaseRvAdapter<T : Any> : RecyclerView.Adapter<BaseRvHolder>() {
 
     override fun onBindViewHolder(holder: BaseRvHolder, position: Int) {
         mItems?.get(position)?.let { data ->
+            holder.mPosition = position
             bindData(holder, data)
-
             holder.itemView.setOnClickListener {
                 mOnItemClickListener?.onClickItem(position, data)
             }

@@ -10,12 +10,20 @@ import com.plumcookingwine.jetpack.utils.ResUtils
 
 class SystemTabAdapter : BaseRvAdapter<SystemTabData>() {
 
+
+    private var mClickTabListener: OnClickTabListener? = null
+
+
+    fun setOnClickTabListener(clickTabListener: OnClickTabListener) {
+        this.mClickTabListener = clickTabListener
+    }
+
     override fun layoutId(): Int {
         return R.layout.item_system_tab
     }
 
     override fun bindData(holder: BaseRvHolder, data: SystemTabData) {
-        val binding by  holder.viewHolderBinding<ItemSystemTabBinding>()
+        val binding by holder.viewHolderBinding<ItemSystemTabBinding>()
 
         val flowTab = binding.flowTab
 
@@ -23,12 +31,22 @@ class SystemTabAdapter : BaseRvAdapter<SystemTabData>() {
 
         flowTab.removeAllViews()
 
-        data.children?.map {
+        data.children?.map { tab ->
             val tabView = TextView(flowTab.context)
             tabView.setTextColor(ResUtils.getResColor(R.color.colorPrimary))
             tabView.setBackgroundResource(R.drawable.border_tag_color_primary)
-            tabView.text = it.name
+            tabView.text = tab.name
+            tabView.isClickable = true
             flowTab.addView(tabView)
+
+            tabView.setOnClickListener {
+                this.mClickTabListener?.clickTab(holder.mPosition, tab.id ?: 0)
+            }
         }
+    }
+
+    fun interface OnClickTabListener {
+
+        fun clickTab(pos: Int, id: Int)
     }
 }

@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
  */
 open class BaseRvHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    var mPosition: Int = -1
+
     inline fun <reified T : ViewDataBinding> viewHolderBinding(): Lazy<T> =
         lazy(LazyThreadSafetyMode.NONE) {
             requireNotNull(DataBindingUtil.bind<T>(itemView)) { "cannot find the layout file" }

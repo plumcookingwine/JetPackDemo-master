@@ -1,5 +1,7 @@
 package com.plumcookingwine.jetpack.data.entity
 
+import java.io.Serializable
+
 /**
  * Created by kangf on 2020/12/21.
  */
@@ -12,4 +14,4 @@ data class SystemTabData(
     val parentChapterId: Int?,
     val userControlSetTop: Boolean?,
     val visible: Int?
-)
+) : Serializable

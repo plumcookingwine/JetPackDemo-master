@@ -36,7 +36,7 @@ class JetPackRepository(
     }
 
     override fun getArticleList(cid: Int?): Flow<PagingData<HomeArticleData.Data>> {
-        return Pager(pagingConfig) { ArticleDataSource(service) }.flow
+        return Pager(pagingConfig) { ArticleDataSource(service, cid) }.flow
     }
 
     override fun getSystemTab(): Flow<List<SystemTabData>?> {

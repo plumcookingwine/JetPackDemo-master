@@ -44,6 +44,14 @@ class SystemArticleFragment : BaseFragment() {
 
     override fun initListener() {
         super.initListener()
+        mViewModel.mArticleLiveData.observe(this) {
+            mBinding.layRefresh.isRefreshing = false
+            mAdapter.submitData(lifecycle, it)
+        }
+
+        mBinding.layRefresh.setOnRefreshListener {
+            mAdapter.refresh()
+        }
     }
 
     override fun initData() {
@@ -62,7 +70,6 @@ class SystemArticleFragment : BaseFragment() {
             it.addItemDecoration(CommonLinearDivider(mActivity))
             it.adapter = mAdapter.withLoadStateFooter(FooterAdapter(mAdapter))
         }
-
     }
 
     override fun lazyLoad() {
@@ -85,8 +92,6 @@ class SystemArticleFragment : BaseFragment() {
                 }
             }
         }
-
-
 
         mViewModel.getArticleList(mCid)
     }

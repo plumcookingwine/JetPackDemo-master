@@ -1,7 +1,6 @@
 package com.plumcookingwine.jetpack.data
 
 import androidx.paging.PagingConfig
-import com.plumcookingwine.jetpack.data.database.AppDatabase
 import com.plumcookingwine.jetpack.data.repository.JetPackRepository
 import com.plumcookingwine.jetpack.data.repository.Repository
 import com.plumcookingwine.jetpack.network.AndroidWanService

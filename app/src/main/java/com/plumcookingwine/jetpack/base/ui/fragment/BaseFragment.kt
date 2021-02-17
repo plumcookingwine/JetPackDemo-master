@@ -87,6 +87,11 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mLazyLoaded = false
+    }
+
     @LayoutRes
     abstract fun layoutId(): Int
 
